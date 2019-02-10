@@ -9,19 +9,38 @@ namespace CityInfo.API.Controllers
     [Route("api/cities")]
     public class CitiesController : Controller
     {
-        [HttpGet()]
-        public JsonResult GetCities()
+        //[HttpGet()]
+        //public JsonResult GetCities()
+        //{
+        //    return new JsonResult(CitiesDataStore.Current.Cities);
+        //}
+
+        //// returns "200 OK" with "null" response - clearly not RESTful 
+        //// better alrternative is to return "IActionResult" and use OK()/NotFound() helper methods so correct status codes are returned
+        //// and also content negotiation sia automatically handled by MVC middleware
+        //[HttpGet("{id}")]
+        //public JsonResult GetCity(int id)
+        //{
+        //    return new JsonResult(CitiesDataStore.Current.Cities.FirstOrDefault(city => city.Id == id));
+        //}
+
+        [HttpGet]
+        public IActionResult GetCities()
         {
-            return new JsonResult(CitiesDataStore.Current.Cities);
+            return Ok(CitiesDataStore.Current.Cities);
         }
 
-        // returns "200 OK" with "null" response - clearly not RESTful 
-        // better alrternative is to return "IActionResult" and use OK()/NotFound() helper methods so correct status codes are returned
-        // and also content negotiation sia automatically handled by MVC middleware
         [HttpGet("{id}")]
-        public JsonResult GetCity(int id)
+        public IActionResult GetCity(int id)
         {
-            return new JsonResult(CitiesDataStore.Current.Cities.FirstOrDefault(city => city.Id == id));
+            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id);
+
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(city);
         }
     }
 }
