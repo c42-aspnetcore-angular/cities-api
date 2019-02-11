@@ -9,7 +9,7 @@ namespace CityInfo.API.Models
     public class PointOfInterestForUpdateDto
     {
         [Required(ErrorMessage = "You should provide a name value")]
-        [MaxLength(25)]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         [MaxLength(70)]
