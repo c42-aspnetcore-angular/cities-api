@@ -48,7 +48,7 @@ namespace CityInfo.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, CityInfoContext cityInfoContext)
         {
             if (env.IsDevelopment())
             {
@@ -59,6 +59,8 @@ namespace CityInfo.API
                 // sends exceptions to logging framework
                 app.UseExceptionHandler();
             }
+
+            cityInfoContext.EnsureSeedDataForContext();
 
             // returns status codes in response body so visible in browsers
             app.UseStatusCodePages();
