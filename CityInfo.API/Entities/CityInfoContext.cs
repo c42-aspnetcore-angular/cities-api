@@ -8,10 +8,19 @@ namespace CityInfo.API.Entities
 {
     public class CityInfoContext : DbContext
     {
+        /*
+         * To create migrations, run in Package Mgr console
+         * Add-Migration CityInfoDBInitialMigration
+         * 
+         * for subsequent updates to entity classes run
+         * Add-Migration CityInfoDBAddPOIDescription
+         */
+
         public CityInfoContext(DbContextOptions<CityInfoContext> options)
             :base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
+            Database.Migrate();
         }
 
         public DbSet<City> Cities { get; set; }
